@@ -2,11 +2,11 @@ module "aws_module_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "gitops-vpc"
-  cidr = "10.0.0.0/19"
+  cidr = "10.0.0.0/18"
 
   azs             = ["us-east-1a"]
-  private_subnets = ["10.0.0.0/20"]
-  public_subnets  = ["10.16.0.0/20"]
+  private_subnets = ["10.0.0.0/20", "10.16.0.0/20"]
+  public_subnets  = ["10.32.0.0/20", "10.48.0.0/20"]
 
   enable_nat_gateway = true
   enable_vpn_gateway = false
