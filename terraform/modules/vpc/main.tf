@@ -17,6 +17,16 @@ module "aws_module_vpc" {
   }
 }
 
+// ------------- Outputs
+
 output "vpc_id" {
   value = module.aws_module_vpc.vpc_id
+}
+
+output "private_subnets" {
+    value = module.private_subnets
+}
+
+output "public_subnets" {
+    value = module.public_subnets
 }
