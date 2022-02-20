@@ -16,3 +16,7 @@ module "aws_module_vpc" {
     Environment = "dev"
   }
 }
+
+outputs "vpc_id" {
+    value = module.aws_module_vpc.vpc_id
+}
