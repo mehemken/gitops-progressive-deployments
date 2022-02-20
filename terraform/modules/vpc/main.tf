@@ -12,11 +12,11 @@ module "aws_module_vpc" {
   enable_vpn_gateway = false
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "dev"
   }
 }
 
-outputs "vpc_id" {
-    value = module.aws_module_vpc.vpc_id
+output "vpc_id" {
+  value = module.aws_module_vpc.vpc_id
 }

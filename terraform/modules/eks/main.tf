@@ -16,11 +16,11 @@ module "eks" {
     }
   }
 
-//// This looks cool, but i'mma figure it out later
-//  cluster_encryption_config = [{
-//    provider_key_arn = "ac01234b-00d9-40f6-ac95-e42345f78b00"
-//    resources        = ["secrets"]
-//  }]
+  //// This looks cool, but i'mma figure it out later
+  //  cluster_encryption_config = [{
+  //    provider_key_arn = "ac01234b-00d9-40f6-ac95-e42345f78b00"
+  //    resources        = ["secrets"]
+  //  }]
 
   vpc_id     = "vpc-1234556abcdef"
   subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
