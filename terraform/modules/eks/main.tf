@@ -25,29 +25,30 @@ module "eks" {
   vpc_id     = var.vpc_id
   subnet_ids = var.private_subnets
 
-  # Self Managed Node Group(s)
-  self_managed_node_group_defaults = {
-    instance_type                          = "t3.medium"
-    update_launch_template_default_version = true
-    iam_role_additional_policies           = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
+  # EKS Managed Node Group(s)
+  eks_managed_node_group_defaults = {
+    ami_type       = "AL2_x86_64"
+    disk_size      = 50
+    instance_types = ["t3.medium"]
+    //vpc_security_group_ids = [aws_security_group.additional.id]
   }
 
-  self_managed_node_groups = {
-    one = {
-      name = "default-ng"
+  eks_managed_node_groups = {
+    blue = {}
+    green = {
+      min_size     = 1
+      max_size     = 10
+      desired_size = 1
 
-      public_ip    = false
-      max_size     = 3
-      desired_size = 2
-
-      //bootstrap_extra_args = "--kubelet-extra-args '--node-labels=node.kubernetes.io/lifecycle=spot'"
-
-      post_bootstrap_user_data = <<-EOT
-      cd /tmp
-      sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-      sudo systemctl enable amazon-ssm-agent
-      sudo systemctl start amazon-ssm-agent
-      EOT
+      instance_types = ["t3.medium"]
+      capacity_type  = "ON_DEMAND"
+      labels = {
+        Environment = "dev"
+        GithubRepo  = "gitops-progressive-deployments"
+      }
+      tags = {
+        ExtraTag = "example"
+      }
     }
   }
 
