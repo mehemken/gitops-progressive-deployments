@@ -1,7 +1,7 @@
 module "aws_module_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "my-vpc"
+  name = "gitops-vpc"
   cidr = "10.0.0.0/19"
 
   azs             = ["us-east-1a"]
