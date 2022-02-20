@@ -4,7 +4,7 @@ module "aws_module_vpc" {
   name = "gitops-vpc"
   cidr = "10.0.0.0/18"
 
-  azs             = ["us-east-1a"]
+  azs             = ["us-east-1a", "us-east-1b"]
   private_subnets = ["10.0.0.0/20", "10.0.16.0/20"]
   public_subnets  = ["10.0.32.0/20", "10.0.48.0/20"]
 
