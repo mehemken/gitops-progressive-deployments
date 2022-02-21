@@ -27,10 +27,10 @@ module "eks" {
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64"
-    disk_size      = 50
-    instance_types = ["t3.medium"]
-    //vpc_security_group_ids = [aws_security_group.additional.id]
+    ami_type               = "AL2_x86_64"
+    disk_size              = 50
+    instance_types         = ["t3.medium"]
+    vpc_security_group_ids = [aws_security_group.allow_github_ssh.id]
   }
 
   eks_managed_node_groups = {
@@ -55,5 +55,29 @@ module "eks" {
   tags = {
     Environment = "dev"
     Terraform   = "true"
+  }
+}
+
+resource "aws_security_group" "allow_github_ssh" {
+  name        = "allow_github_ssh"
+  description = "Allow SSH outbound to GitHub"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = local.github_ssh_ranges
+  }
+
+  egress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = local.github_ssh_ranges
+  }
+
+  tags = {
+    Name = "allow_github_ssh"
   }
 }
